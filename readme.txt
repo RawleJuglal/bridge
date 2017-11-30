@@ -1,0 +1,1 @@
+An attempt to cleanly merge bridgeapi and thebridgebilliards project
