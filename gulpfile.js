@@ -27,8 +27,8 @@ var interceptErrors = function(error) {
 var jsFiles = "public/javascripts/**/*.js";
 var cssFiles = "public/stylesheets/*.css";
 var viewFiles = "public/javascripts/**/*.html";
-var bootstrapCSS = "public/vendors/bootstrap/css/bootstrap.min.css";
-var bootstrapJS = "public/vendors/bootstrap/js/bootstrap.min.js";
+var bootstrapCSS = "public/vendors/bootstrap/css/*";
+var bootstrapJS = "public/vendors/bootstrap/js/*";
 
 gulp.task('lint', function(){
 	return gulp.src('jsFiles')
