@@ -13,7 +13,7 @@ class CareersCtrl {
         this.isSubmitting = true;
         // console.log('called submit');
         var uploadUrl = '/resumes/upload';
-        console.log(this.formData);
+        console.log('This formData', this.formData);
         this._MultipartForm.upload(uploadUrl, this.formData).then(
               () => {
                 this.formData = {};

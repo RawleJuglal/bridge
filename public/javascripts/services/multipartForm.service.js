@@ -24,15 +24,19 @@ export default class multipartForm {
 
   upload(uploadUrl, data) {
     console.log('called upload');
+    console.log('Data', data);
     var fd = new FormData();
     for (var key in data) {
-      fd.append(key, data[key]);
+      var k = key;
+      var d = data[key];
+      fd.append(k, d);
+      console.log('current fd', fd);
     }
     // When you upload a form, you have to change the default content-type to
     // Multipart/form-data, otherwise it will try to send json
     // and when you send a form and expect json, body parser will try to 
     // parse it, which triggers the error before it ever gets to the route itself.
-
+    console.log('FD', fd);
 
     return this._$http.post(uploadUrl, fd, {
       headers: {
@@ -40,6 +44,7 @@ export default class multipartForm {
       }
     }).then(
       (res) => {
+        console.log('Res', res);
         return res;
       }
     )
