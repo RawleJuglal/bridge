@@ -27,7 +27,8 @@ var interceptErrors = function(error) {
 var jsFiles = "public/javascripts/**/*.js";
 var cssFiles = "public/stylesheets/*.css";
 var viewFiles = "public/javascripts/**/*.html";
-
+var bootstrapCSS = "public/vendors/bootstrap/css/bootstrap.min.css";
+var bootstrapJS = "public/vendors/bootstrap/js/bootstrap.min.js";
 
 gulp.task('lint', function(){
 	return gulp.src('jsFiles')
@@ -73,5 +74,17 @@ gulp.task('errors', function(){
 		.pipe(gulp.dest('./build/'));
 });
 
+gulp.task('bootstrapCSS', function(){
+	return gulp.src(bootstrapCSS)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/bootstrap/css/'));
+});
 
-gulp.task('default', ['lint', 'html', 'css', 'errors', 'browserify']);
+gulp.task('bootstrapJS', function(){
+	return gulp.src(bootstrapJS)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/bootstrap/js/'));
+});
+
+
+gulp.task('default', ['lint', 'html', 'css', 'bootstrapCSS', 'bootstrapJS', 'errors', 'browserify']);

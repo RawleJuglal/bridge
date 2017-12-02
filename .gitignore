@@ -2,6 +2,7 @@ node_modules
 package-lock.json
 yarn.lock
 npm-debug.log
+public/vendors/*
 build/vendors/*
 # Local development
 *.env
