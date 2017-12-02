@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var multer = require('multer');
 var GridFsStorage = require('multer-gridfs-storage');
+var Resume = mongoose.model('Resume');
 
 if (!process.env.MONGODB_URI) {
   var mongoUri = 'mongodb://heroku_qcfnlfsn:shmrtnogm81jjotr8j5hs6srn8@ds125556.mlab.com:25556/heroku_qcfnlfsn'
@@ -34,12 +35,17 @@ var upload = multer({ //multer settings for single upload
 }).single('file');
 
 router.get('/', function(req, res, next){
-	res.json({success:true, message:'You are in the resume routes'});
+	Resume.find(function(err, resumes){
+		if(err){next(err);}
+
+		res.json(resumes);
+	});
 });
 
 
 router.post('/upload', function(req, res, next){
-	console.log(req.file.originalname);
+	console.log(req.body);
+	console.log(req.file);
 	upload(req, res, function(err){
 		if(err){
 			res.json({error_code:1, err_desc:err});

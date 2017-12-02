@@ -26,7 +26,7 @@ export default class Resume{
          return deferred.promise;
       }
       
-    // Delete an article
+    // Delete a resume
     destroy(slug) {
         return this._$http({
            url:'/resumes/' + slug,

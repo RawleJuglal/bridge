@@ -12,7 +12,8 @@ class CareersCtrl {
     onSubmit(){
         this.isSubmitting = true;
         // console.log('called submit');
-        var uploadUrl = this._AppConstants.api + '/upload';
+        var uploadUrl = '/resumes/upload';
+        console.log(this.formData);
         this._MultipartForm.upload(uploadUrl, this.formData).then(
               () => {
                 this.formData = {};

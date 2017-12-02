@@ -38,7 +38,6 @@ export default class Post{
         }).then(
            (res) => 
            {
-            console.log(res)
             deferred.resolve(res.data)
            },
            (err) => deferred.reject(err)

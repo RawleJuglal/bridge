@@ -38940,7 +38940,7 @@ _angular2.default.bootstrap(document, ['app'], {
 	strictDi: true
 });
 
-},{"./careers":7,"./components":9,"./config/app.config":11,"./config/app.constants":12,"./config/app.run":13,"./config/app.templates":14,"./dashboard":17,"./home":20,"./layout":22,"./leagues":23,"./login":26,"./news":29,"./parties":32,"./services":35,"./tournaments":41,"./venue":44,"angular":3,"angular-ui-router":1}],5:[function(require,module,exports){
+},{"./careers":7,"./components":10,"./config/app.config":12,"./config/app.constants":13,"./config/app.run":14,"./config/app.templates":15,"./dashboard":18,"./home":21,"./layout":23,"./leagues":24,"./login":27,"./news":30,"./parties":33,"./services":36,"./tournaments":42,"./venue":45,"angular":3,"angular-ui-router":1}],5:[function(require,module,exports){
 'use strict';
 
 CareersConfig.$inject = ["$stateProvider"];
@@ -38993,7 +38993,8 @@ var CareersCtrl = function () {
 
             this.isSubmitting = true;
             // console.log('called submit');
-            var uploadUrl = this._AppConstants.api + '/upload';
+            var uploadUrl = '/resumes/upload';
+            console.log(this.formData);
             this._MultipartForm.upload(uploadUrl, this.formData).then(function () {
                 _this.formData = {};
                 _this.isSubmitting = false;
@@ -39042,6 +39043,33 @@ exports.default = careersModule;
 },{"./careers.config":5,"./careers.controller":6,"angular":3}],8:[function(require,module,exports){
 'use strict';
 
+fileModel.$inject = ["$parse"];
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function fileModel($parse) {
+    'ngInject';
+
+    return {
+        restrict: 'A',
+        link: function link(scope, element, attrs) {
+            var model = $parse(attrs.fileModel);
+            var modelSetter = model.assign;
+
+            element.bind('change', function () {
+                scope.$apply(function () {
+                    modelSetter(scope, element[0].files[0]);
+                });
+            });
+        }
+    };
+}
+
+exports.default = fileModel;
+
+},{}],9:[function(require,module,exports){
+'use strict';
+
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
@@ -39065,7 +39093,7 @@ var AppHeader = {
 
 exports.default = AppHeader;
 
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39084,6 +39112,10 @@ var _navigation = require('./navigation.component');
 
 var _navigation2 = _interopRequireDefault(_navigation);
 
+var _fileModel = require('./fileModel.directive');
+
+var _fileModel2 = _interopRequireDefault(_fileModel);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var componentsModule = _angular2.default.module('app.components', []);
@@ -39092,9 +39124,11 @@ componentsModule.component('appHeader', _header2.default);
 
 componentsModule.component('navigation', _navigation2.default);
 
+componentsModule.directive('fileModel', _fileModel2.default);
+
 exports.default = componentsModule;
 
-},{"./header.component":8,"./navigation.component":10,"angular":3}],10:[function(require,module,exports){
+},{"./fileModel.directive":8,"./header.component":9,"./navigation.component":11,"angular":3}],11:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39120,7 +39154,7 @@ var Navigation = {
 
 exports.default = Navigation;
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 'use strict';
 
 AppConfig.$inject = ["$httpProvider", "$stateProvider", "$locationProvider", "$urlRouterProvider"];
@@ -39145,7 +39179,7 @@ function AppConfig($httpProvider, $stateProvider, $locationProvider, $urlRouterP
 
 exports.default = AppConfig;
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 (function (__dirname){
 'use strict';
 
@@ -39161,7 +39195,7 @@ var AppConstants = {
 exports.default = AppConstants;
 
 }).call(this,"/public\\javascripts\\config")
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 'use strict';
 
 AppRun.$inject = ["AppConstants", "$rootScope"];
@@ -39190,11 +39224,11 @@ function AppRun(AppConstants, $rootScope) {
 
 exports.default = AppRun;
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 angular.module('templates', []).run(['$templateCache', function ($templateCache) {
-  $templateCache.put('careers/careers.html', '<div class="careers-page">\r\n    <app-header></app-header>\r\n    <div class="background-cyan">\r\n      <navigation></navigation>\r\n    </div>\r\n    <div class="container careers-container container-to-bottom">\r\n        <div class="row">\r\n            <div class="col-12 col-sm-6 mx-auto mt-4">\r\n               <h1 class=\'carbon cyan text-center\'>Careers</h1>\r\n               <div class="divider background-cyan"></div>\r\n               <p class=\'salmon mt-4 font-24\'>The Bridge is a premier pool hall providing an exceptional experience to it\'s clientele. We have the best tables, a great selection of drinks, good food options and lots of entertainment in a classy atmosphere. We are currently looking for people with service industry experience to serve at our Edmond location.</p>\r\n               <div class="container">\r\n                   <div class="row">\r\n                       <div class="col-12">\r\n                           <h2 class=\'zaffre h5\'>Currently Hiring</h2>\r\n                       </div>\r\n                   </div>\r\n                   <div class="row no-gutters">\r\n                       <div class="col-12 col-sm-4 d-none d-sm-block">\r\n                           <img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510865654/currently-hiring_ihqmpa.jpg" class=\'img-fluid mb-3\'></img>\r\n                       </div>\r\n                       <div class="col-12 col-sm-8">\r\n                           <ul class=\'list-unstyled zaffre ml-3\'>\r\n                                <li>Bar Manager</li>\r\n                                <li>Full time bartenders</li>\r\n                                <li>Part time bartenders</li>\r\n                                <li>Full or part time cooks</li>\r\n                                <li>Part time cocktail waitress</li>\r\n                           </ul>\r\n                       </div>\r\n                   </div>\r\n                   <div class="row">\r\n                       <div class="col-12 mb-3">\r\n                         <span class=\'zaffre h6 font-24\'>Please submit your resume here and we will contact you</span>  \r\n                       </div>\r\n                   </div>\r\n               </div>    \r\n            </div>\r\n            <div class="col-12 col-sm-6 mx-auto mb-5">\r\n                <div class="background-cyan pt-3 pb-3 pl-1 pr-1">\r\n                   <form ng-submit="$ctrl.onSubmit()">\r\n                       <fieldset ng-disabled="$ctrl.isSubmitting">\r\n                            <div class="form-group row">\r\n                                <label for="inputName" class="col-sm-2 col-form-label sr-only">Name</label>\r\n                                <div class="col-12">\r\n                                    <input type="text" class="form-control" id="inputName" placeholder="Full Name" ng-model=\'$ctrl.formData.name\'>\r\n                                </div>\r\n                            </div>\r\n                            <div class="form-group row">\r\n                                <label for="tel-input" class="col-sm-2 col-form-label sr-only">Telephone</label>\r\n                                <div class="col-12">\r\n                                    <input class="form-control" type="tel" value="Phone Number" id="tel-input" ng-model=\'$ctrl.formData.phone\'>\r\n                                </div>\r\n                            </div>\r\n                            <div class="form-group row">\r\n                                <label for="inputEmail" class="col-sm-2 col-form-label sr-only">EMAIL</label>\r\n                                  <div class="col-12">\r\n                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model=\'$ctrl.formData.email\'>\r\n                                  </div>\r\n                            </div>\r\n                            <div class="form-group">\r\n                                     <label class=\'text-white\' for="FileId">Upload Resume (pdf format)</label>\r\n                                    <input type="file" class="form-control-file" id="fileId" file-model="$ctrl.formData.file" />\r\n                            </div>\r\n                            <div class="text-center">\r\n                                <button type="submit" id=\'submit-btn\' class="btn btn-sm btn-secondary mt-5 info-button">Submit Form</button>\r\n                            </div>\r\n                        </fieldset>\r\n                    </form> \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div><!--End of container-->\r\n</div>');
+  $templateCache.put('careers/careers.html', '<div class="careers-page">\r\n    <app-header></app-header>\r\n    <div class="background-cyan">\r\n      <navigation></navigation>\r\n    </div>\r\n    <div class="container careers-container container-to-bottom">\r\n        <div class="row">\r\n            <div class="col-12 col-sm-6 mx-auto mt-4">\r\n               <h1 class=\'carbon cyan text-center\'>Careers</h1>\r\n               <div class="divider background-cyan"></div>\r\n               <p class=\'salmon mt-4 font-24\'>The Bridge is a premier pool hall providing an exceptional experience to it\'s clientele. We have the best tables, a great selection of drinks, good food options and lots of entertainment in a classy atmosphere. We are currently looking for people with service industry experience to serve at our Edmond location.</p>\r\n               <div class="container">\r\n                   <div class="row">\r\n                       <div class="col-12">\r\n                           <h2 class=\'zaffre h5\'>Currently Hiring</h2>\r\n                       </div>\r\n                   </div>\r\n                   <div class="row no-gutters">\r\n                       <div class="col-12 col-sm-4 d-none d-sm-block">\r\n                           <img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510865654/currently-hiring_ihqmpa.jpg" class=\'img-fluid mb-3\'></img>\r\n                       </div>\r\n                       <div class="col-12 col-sm-8">\r\n                           <ul class=\'list-unstyled zaffre ml-3\'>\r\n                                <li>Bar Manager</li>\r\n                                <li>Full time bartenders</li>\r\n                                <li>Part time bartenders</li>\r\n                                <li>Full or part time cooks</li>\r\n                                <li>Part time cocktail waitress</li>\r\n                           </ul>\r\n                       </div>\r\n                   </div>\r\n                   <div class="row">\r\n                       <div class="col-12 mb-3">\r\n                         <span class=\'zaffre h6 font-24\'>Please submit your resume here and we will contact you</span>  \r\n                       </div>\r\n                   </div>\r\n               </div>    \r\n            </div>\r\n            <div class="col-12 col-sm-6 mx-auto mb-5">\r\n                <div class="background-cyan pt-3 pb-3 pl-1 pr-1">\r\n                   <form ng-submit="$ctrl.onSubmit()">\r\n                       <fieldset ng-disabled="$ctrl.isSubmitting">\r\n                            <div class="form-group row">\r\n                                <label for="inputAuthor" class="col-sm-2 col-form-label sr-only">Name</label>\r\n                                <div class="col-12">\r\n                                    <input type="text" class="form-control" id="inputName" placeholder="Full Name" ng-model=\'$ctrl.formData.author\'>\r\n                                </div>\r\n                            </div>\r\n                            <div class="form-group row">\r\n                                <label for="tel-input" class="col-sm-2 col-form-label sr-only">Telephone</label>\r\n                                <div class="col-12">\r\n                                    <input class="form-control" type="tel" value="Phone Number" id="tel-input" ng-model=\'$ctrl.formData.phone\'>\r\n                                </div>\r\n                            </div>\r\n                            <div class="form-group row">\r\n                                <label for="inputEmail" class="col-sm-2 col-form-label sr-only">EMAIL</label>\r\n                                  <div class="col-12">\r\n                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model=\'$ctrl.formData.email\'>\r\n                                  </div>\r\n                            </div>\r\n                            <div class="form-group">\r\n                                     <label class=\'text-white\' for="FileId">Upload Resume (pdf format)</label>\r\n                                    <input type="file" class="form-control-file" id="fileId" file-model="$ctrl.formData.file" />\r\n                            </div>\r\n                            <div class="text-center">\r\n                                <button type="submit" id=\'submit-btn\' class="btn btn-sm btn-secondary mt-5 info-button">Submit Form</button>\r\n                            </div>\r\n                        </fieldset>\r\n                    </form> \r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div><!--End of container-->\r\n</div>');
   $templateCache.put('components/header.html', '<nav class="navbar navbar-light bg-dark navbar-mobile">\r\n  <a class="navbar-brand" href="#">\r\n      <img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510691530/TheBridge_LogoExact_oyhebw.png" width="164" height="57" class="d-inline-block align-top" alt="">\r\n  </a>\r\n  <button class="navbar-toggler navbar-toggler-right custom-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">\r\n    <span class="navbar-toggler-icon"></span>\r\n  </button>\r\n  <div class="collapse navbar-collapse bg-light" id="navbarNavAltMarkup">\r\n    <div class="navbar-nav">\r\n      <div class="media">\r\n        <img class="svg-icon" src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/mailing_w8nplw.svg" alt="email">\r\n        <div class="media-body">\r\n            <a class=\'mobile-email\' href="mailto:info@thebridgebilliards.com">info@thebridgebilliards.com</a> \r\n        </div>\r\n      </div>\r\n      <div class="media">\r\n        <img class="svg-icon" src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/phone-call_bjglxm.svg" alt="email">\r\n        <div class="media-body">\r\n            <p>(405)285-7070</p>   \r\n        </div>\r\n      </div> \r\n      <div class="media">\r\n          <img class="svg-icon" src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/maps-and-flags_ofmu0x.svg" alt="location">\r\n          <div class="media-body">\r\n            <p>261 S Sante Fe Avenue</p>\r\n            <p>Edmond, OK 73003</p>\r\n          </div>\r\n        </div>    \r\n      <div class="social-mobile text-center">\r\n          <p class=\'h6\'>CONNECT WITH US</p>\r\n          <ul class="nav justify-content-center nav-fill">\r\n              <li class="nav-item zaffre">\r\n                <a class="nav-link" href="#"><i class="fa fa-facebook fa-2x zaffre" aria-hidden="true"></i></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a class="nav-link" href="#"><i class="fa fa-twitter fa-2x zaffre" aria-hidden="true"></i></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a class="nav-link" href="#"><i class="fa fa-instagram fa-2x zaffre" aria-hidden="true"></i></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a class="nav-link" href="#"><i class="fa fa-youtube-play fa-2x zaffre" aria-hidden="true"></i></a>\r\n              </li>    \r\n            </ul>\r\n      </div><!--End of social-mobile-->\r\n      <div class="page-links font-weight-bold">\r\n          <ul class="nav flex-column">\r\n              <li class="nav-item">\r\n                <a ui-sref="app.home" class="nav-link" href="#"><i class="fa fa-home zaffre" aria-hidden="true"></i> <span class="zaffre">Back to Home</span></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a ui-sref="app.venue" class="nav-link" href="#"><i class="fa fa-search zaffre" aria-hidden="true"></i> <span class="zaffre">Venue Details</span></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a ui-sref="app.parties" class="nav-link" href="#"><i class="fa fa-gift zaffre" aria-hidden="true"></i> <span class="zaffre">Private Parties</span></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a ui-sref="app.leagues" class="nav-link" href="#"><i class="fa fa-users zaffre" aria-hidden="true"></i> <span class="zaffre">Leagues</span></a>\r\n              </li>\r\n              <li class="nav-item">\r\n                <a ui-sref="app.tournaments" class="nav-link" href="#"><i class="fa fa-trophy zaffre" aria-hidden="true"></i> <span class="zaffre">Tournaments</span></a>\r\n              </li>\r\n            </ul>\r\n      </div>\r\n    </div>\r\n  </div>\r\n</nav>');
   $templateCache.put('components/navigation.html', '<div class="row nav-lg-device no-gutters pt-1">\r\n    <div class="col-12 col-lg-2 col-xl-3"></div>\r\n    <div class="col-md-6 col-lg-5 col-xl-4">\r\n        <a ui-sref="app.home"><img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510691123/TheBridge_LogoLarge_smcbc6.png" class=\'img-fluid float-right\'></img></a>\r\n    </div><!--End of col-sm-6-->\r\n    <div class="col-md-6 col-lg-5 col-xl-5">\r\n        <ul class=\'nav float-right\'>\r\n            <li class=\'nav-item\'><u><a class=\'nav-link\' ui-sref="app.venue">Venue Details</a></u></li>\r\n            <li class=\'nav-item\'><u><a class=\'nav-link\' ui-sref="app.parties">Private Parties</a></u></li>\r\n            <li class=\'nav-item\'><u><a class=\'nav-link\' ui-sref="app.leagues">Leagues</a></u></li>\r\n            <li class=\'nav-item\'><u><a class=\'nav-link\' ui-sref="app.tournaments">Tournaments</a></u></li>\r\n            <li class=\'nav-item\'><a class=\'nav-link nav-link-social\' href="https://www.facebook.com/TheBridgeBilliards/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>\r\n            <li class=\'nav-item\'><a class=\'nav-link nav-link-social\' href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>\r\n            <li class=\'nav-item\'><a class=\'nav-link nav-link-social\' href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>\r\n            <li class=\'nav-item\'><a class=\'nav-link nav-link-social\' href="#"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li> \r\n        </ul>\r\n    </div><!--End of col-sm-6-->\r\n</div><!--End of row-->');
   $templateCache.put('dashboard/dashboard.html', '<div class="background-zaffre">\r\n  <navigation></navigation>\r\n</div>\r\n<div class="dashboard-container container-to-bottom">\r\n    <div class="container">\r\n        <div class="row">\r\n            <div class="col-12 col-sm-8 col-lg-9">\r\n                <div class="tournaments-list">\r\n                    <h2 class=\'zaffre\'><u>Tournaments List</u></h2>\r\n                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="post in $ctrl.posts | filter:{category:\'tournament\'}">\r\n                        <div class="row">\r\n                            <div class="col-10">\r\n                               <h3 class=\'pl-1 pt-1\' ng-bind="post.title"></h3>\r\n                               <p class=\'pl-1 pt-1\' ng-bind="post.date | date:\'MMM dd\'"></p>\r\n                            </div>\r\n                            <div class="col-2">\r\n                                <button type="button" class="close pr-1" aria-label="Close" ng-click=\'$ctrl.deletePost(post._id)\'>\r\n                                  <span aria-hidden="true">&times;</span>\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div><!--End of tournaments-post-->\r\n                </div><!--End of tournaments list-->\r\n                <div class="new-list">\r\n                    <h2 class=\'zaffre\'><u>News & Promotions List</u></h2>\r\n                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="post in $ctrl.posts | filter:{category:\'news\'}">\r\n                        <div class="row">\r\n                            <div class="col-10">\r\n                               <h3 class=\'pl-1 pt-1\' ng-bind="post.title"></h3>\r\n                               <p class=\'pl-1 pt-1\' ng-bind="post.date | date:\'MMM dd\'"></p>\r\n                            </div>\r\n                            <div class="col-2">\r\n                                <button type="button" class="close mr-1" aria-label="Close"  ng-click=\'$ctrl.deletePost(post._id)\'>\r\n                                  <span aria-hidden="true">&times;</span>\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div><!--End of tournaments-post-->\r\n                </div><!--End of news list-->\r\n                <div class="resume-list">\r\n                    <h2 class=\'zaffre\'><u>Resumes</u></h2>\r\n                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="resume in $ctrl.resumes">\r\n                        <div class="row">\r\n                            <div class="col-10">\r\n                               <h3 class=\'pl-1 pt-1\' ng-bind="resume.name"></h3>\r\n                               <span><span class=\'pl-1 pt-1\' ng-bind="resume.date | date:\'MMM dd\'"></span> <span class=\'pl-1 pt-1\' ng-bind="resume.phone"></span> <span class=\'pl-1 pt-1\' ng-bind="resume.email"></span></span>\r\n                               <a class="btn btn-link" target=\'_blank\' href=\'https://pure-woodland-45165.herokuapp.com/{{resume.file_path}}\'><i class="fa fa-cloud-download" aria-hidden="true"></i></a>\r\n                            </div>\r\n                            <div class="col-2">\r\n                                <button type="button" class="close mr-1" aria-label="Close"  ng-click=\'$ctrl.deleteResume(resume._id)\'>\r\n                                  <span aria-hidden="true">&times;</span>\r\n                                </button>\r\n                            </div>\r\n                        </div>\r\n                    </div><!--End of tournaments-post-->\r\n                </div><!--End of news list-->\r\n            </div><!--End of col-sm-9-->\r\n            <div class="col-12 col-sm-4 col-lg-3">\r\n                <div class="background-zaffre  mt-5 mb-5 pt-3 pb-3 pl-1 pr-1 OEDropShadow">\r\n                    <form ng-submit="$ctrl.submitForm()">\r\n                        <p class=\'text-white\'>Add new Post</p>\r\n                        <fieldset ng-disabled="$ctrl.isSubmitting">\r\n                            <fieldset class=\'form-group\'>\r\n                                <label for="title" class=\'sr-only\'>Title</label>\r\n                                <input class=\'form-control form-control-lg\' type=\'text\' placeholder=\'title\' ng-model="$ctrl.formData.title" required />\r\n                            </fieldset>\r\n                            <fieldset class=\'form-group\'>\r\n                                <label for="date" class=\'sr-only\'>Date</label>\r\n                                <input class=\'form-control form-control-lg\' id="date" type="date" ng-model="$ctrl.formData.date" required >\r\n                            </fieldset><!--End of fieldset-->\r\n                            <fieldset class=\'form-group\'>\r\n                                <label for="bodyTextArea" class=\'sr-only\'>Body</label>\r\n                                <textarea class="form-control form-control-lg" id="bodyTextArea" rows="3" ng-model="$ctrl.formData.body" placeholder="body" required ></textarea>\r\n                            </fieldset>\r\n                            <fieldset class=\'form-group\'>\r\n                               <label for="urlPhoto" class=\'sr-only\'>Photo</label>\r\n                               <input class=\'form-control form-control-lg\' type=\'text\' placeholder=\'url\' ng-model="$ctrl.formData.photo_link" required />\r\n                            </fieldset><!--End of form-group-->\r\n                            <div class="form-group">\r\n                                <label for="categorySelect">Category</label>\r\n                                <select class="form-control" id="categorySelect" ng-model="$ctrl.formData.category" required >\r\n                                  <option>Tournament</option>\r\n                                  <option>News</option>\r\n                                </select>\r\n                              </div>\r\n                        </fieldset><!--End of fieldset-->\r\n                        <fieldset>\r\n                           <button class="btn btn-sm btn-light float-right"type="submit">Add Post</button> \r\n                        </fieldset>   \r\n                    </form>\r\n                </div><!--End of background-zaffre-->\r\n                <div class="col-12 text-center">\r\n                <button type="button" class="btn btn-danger OEDropShadow" ng-click=\'$ctrl.logout()\'>Log Out</button>\r\n            </div>\r\n            </div><!--End of col-sm-3-->\r\n        </div><!--End of row-->\r\n    </div><!--End of container-->\r\n</div>');
@@ -39209,7 +39243,7 @@ angular.module('templates', []).run(['$templateCache', function ($templateCache)
   $templateCache.put('venue/venue.html', '<div class="venue-page">\r\n    <app-header></app-header>\r\n    <div class="background-salmon">\r\n      <navigation></navigation>\r\n    </div>\r\n    <div class="container">\r\n      <div class="row mb-5">\r\n        <div class="col-12 col-sm-8 mx-auto mt-4">\r\n          <h1 class=\'carbon salmon text-center\'>Venue Details</h1>\r\n          <div class="divider background-salmon"></div>  \r\n        </div><!--End of col-12-->\r\n      </div><!--End of row-->\r\n      <div class="row">\r\n          <div class="col-12 col-sm-6">\r\n            <img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1511210805/VenueDetailsTemp_z0wiih.png" class=\'img-fluid pb-3\'></img>  \r\n          </div><!--End of col-sm-6-->\r\n          <div class="col-12 col-sm-6">\r\n            <p>The Bridge is a premier pool hall providing an exceptional experience to our clientele with Diamond Billiard tables, full bar, food and fun in a non-smoking environmet!</p>  \r\n          </div><!--End of col-sm-6-->\r\n      </div><!--End of row-->\r\n      <div class="row">\r\n          <div class="col-12 col-sm-6 pb-3">\r\n              <div class="row text-center h5">\r\n                  <div class="col-12">\r\n                    <img class=\'svg-icon-lg\' src="http://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/mailing_w8nplw.svg" alt="email">  \r\n                  </div>\r\n                  <div class="col-12 mb-3">\r\n                    <a href="mailto:info@thebridgebilliards.com">info@thebridgebilliards.com</a>  \r\n                  </div>\r\n                  <div class="col-12 mb-3">\r\n                    <img class=\'svg-icon-lg\' src="http://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/phone-call_bjglxm.svg" alt="phone">  \r\n                  </div>\r\n                  <div class="col-12">\r\n                    <p>(405)285-7070</p>  \r\n                  </div>\r\n                  <div class="col-12">\r\n                    <img class=\'svg-icon-lg\' src="http://res.cloudinary.com/relentlessrawle/image/upload/v1510691501/maps-and-flags_ofmu0x.svg" alt="maps and flags">\r\n                  </div>\r\n                  <div class="col-12">\r\n                    <p>261 S Sante Fe Avenue</p>\r\n                    <p>Edmond, OK 73003</p>  \r\n                  </div>\r\n                  <div class="col-12">\r\n                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.949842638192!2d-97.51738788464992!3d35.65360738020071!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87b21e721fd34e1b%3A0xa6f7aae9ae6f5cef!2s261+S+Santa+Fe+Ave%2C+Edmond%2C+OK+73003!5e0!3m2!1sen!2sus!4v1510257417304" class=\'img-fluid\'  frameborder="0" style="border:0" allowfullscreen></iframe> \r\n                  </div>\r\n              </div><!--End of row-->\r\n          </div><!--End of col-12 col-sm-6-->\r\n          <div class="col-12 col-sm-6">\r\n              <div class="row">\r\n                  <div class="col-12">\r\n                      <h3 class=\'h5 cyan\'>Featured Amenities</h3>\r\n                  </div><!--End of col-12-->\r\n              </div><!--End of row-->\r\n              <div class="row no-gutters">\r\n                <div class="col-6">\r\n                    <ul class=\'list-unstyled\'>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> 7\u201D Diamond Bar Pool Tables</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> 9\u201D Diamond Professional Tables</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> 10\u201D Vintage Snooker Table</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Full Length Shuffleboard Table</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Dart Boards</li>\r\n                    </ul>  \r\n                </div><!--End of col-6-->\r\n                <div class="col-6">\r\n                    <ul class=\'list-unstyled\'>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Live Music(See Live Music Calendar for show times)</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Full Service Bar</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Private Room</li>\r\n                        <li><i class="fa fa-bullseye" aria-hidden="true"></i> Delicious Food</li>\r\n                    </ul>  \r\n                </div><!--End of col-6-->      \r\n              </div><!--End of row-->\r\n              <div class="row">\r\n                  <div class="col-12 zaffre h5">\r\n                    <h3>FAQs</h3>  \r\n                  </div><!--End of col-12-->\r\n              </div><!--End of row-->\r\n              <div class="row">\r\n                  <div class="col-12 faq-hours">\r\n                      <h4 class=\'h5 zaffre\'>What are your hours</h4>\r\n                      <ul class=\'list-unstyled\'>\r\n                          <li>Hours</li>\r\n                          <li>Mon-Thurs 4pm-1:30</li>\r\n                          <li>Fri-Sat 11am-1:30</li>\r\n                          <li>Sun Noon-1:30</li>\r\n                      </ul>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>How long can I reserve a table for?</h4>\r\n                      <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit,\r\n                      sed diam nonummy nibh euismod tincidunt ut laoreet dolore\r\n                      magna aliquam erat volutpat. Ut wisi enim ad minim veniam</p>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>How old do you need to be to enter?</h4>\r\n                      <p>The Bridge is exclusively 21 an older to enter.</p>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>How can I reserve the private room?</h4>\r\n                      <p>Contact us at <a href="tel:+4052857070" class=\'cyan\'>(405) 285-7070</a> or <a href="mailto:info@thebridgebilliards.com" class=\'zaffre\'>info@thebridgebilliards.com</a></p>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>How much does the private room cost?</h4>\r\n                      <p>There is no cost for the private room but it does require a combined bar and or kitchen order of $200/hour. Please contact us for details.</p>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>How can my band play your location?</h4>\r\n                      <p>Please submit your demo to us at <a href="mailto:info@thebridgebilliards.com" class=\'zaffre\'>info@thebridgebilliards.com</a></p>\r\n                  </div><!--end of col-12-->\r\n                  <div class="col-12">\r\n                      <h4 class=\'h5 zaffre\'>What if I\u2019m a smoker?</h4>\r\n                      <p>No problem. There is external seating available or you are welcome to \u201Cvape\u201D as long as it does not impose on other players.</p>\r\n                  </div><!--end of col-12-->\r\n              </div><!--End of row-->\r\n          </div><!--End of col-sm-6-->\r\n      </div><!--End of row-->\r\n    </div><!--End of venue-container-->\r\n</div>');
 }]);
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 'use strict';
 
 DashboardConfig.$inject = ["$stateProvider"];
@@ -39248,7 +39282,7 @@ function DashboardConfig($stateProvider) {
 
 exports.default = DashboardConfig;
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39321,7 +39355,7 @@ var DashboardCtrl = function () {
 
 exports.default = DashboardCtrl;
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39350,7 +39384,7 @@ dashboardModule.controller('DashboardCtrl', _dashboard4.default);
 
 exports.default = dashboardModule;
 
-},{"./dashboard.config":15,"./dashboard.controller":16,"angular":3}],18:[function(require,module,exports){
+},{"./dashboard.config":16,"./dashboard.controller":17,"angular":3}],19:[function(require,module,exports){
 'use strict';
 
 HomeConfig.$inject = ["$stateProvider"];
@@ -39371,7 +39405,7 @@ function HomeConfig($stateProvider) {
 
 exports.default = HomeConfig;
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39413,7 +39447,7 @@ var HomeCtrl = function () {
 
 exports.default = HomeCtrl;
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39442,7 +39476,7 @@ homeModule.controller('HomeCtrl', _home4.default);
 
 exports.default = homeModule;
 
-},{"./home.config":18,"./home.controller":19,"angular":3}],21:[function(require,module,exports){
+},{"./home.config":19,"./home.controller":20,"angular":3}],22:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39469,7 +39503,7 @@ var AppFooter = {
 
 exports.default = AppFooter;
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39494,7 +39528,7 @@ layoutModule.component('appFooter', _footer2.default);
 
 exports.default = layoutModule;
 
-},{"./footer.component":21,"angular":3}],23:[function(require,module,exports){
+},{"./footer.component":22,"angular":3}],24:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39523,7 +39557,7 @@ leaguesModule.controller('LeaguesCtrl', _leagues4.default);
 
 exports.default = leaguesModule;
 
-},{"./leagues.config":24,"./leagues.controller":25,"angular":3}],24:[function(require,module,exports){
+},{"./leagues.config":25,"./leagues.controller":26,"angular":3}],25:[function(require,module,exports){
 'use strict';
 
 LeaguesConfig.$inject = ["$stateProvider"];
@@ -39544,7 +39578,7 @@ function LeaguesConfig($stateProvider) {
 
 exports.default = LeaguesConfig;
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39576,7 +39610,7 @@ LeaguesCtrl.$inject = ["AppConstants", "$location", "$window"];
 
 exports.default = LeaguesCtrl;
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39605,7 +39639,7 @@ loginModule.controller('LoginCtrl', _login4.default);
 
 exports.default = loginModule;
 
-},{"./login.config":27,"./login.controller":28,"angular":3}],27:[function(require,module,exports){
+},{"./login.config":28,"./login.controller":29,"angular":3}],28:[function(require,module,exports){
 'use strict';
 
 LoginConfig.$inject = ["$stateProvider"];
@@ -39626,7 +39660,7 @@ function LoginConfig($stateProvider) {
 
 exports.default = LoginConfig;
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39689,7 +39723,7 @@ var LoginCtrl = function () {
 
 exports.default = LoginCtrl;
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39718,7 +39752,7 @@ newsModule.controller('NewsCtrl', _news4.default);
 
 exports.default = newsModule;
 
-},{"./news.config":30,"./news.controller":31,"angular":3}],30:[function(require,module,exports){
+},{"./news.config":31,"./news.controller":32,"angular":3}],31:[function(require,module,exports){
 'use strict';
 
 NewsConfig.$inject = ["$stateProvider"];
@@ -39752,7 +39786,7 @@ function NewsConfig($stateProvider) {
 
 exports.default = NewsConfig;
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39776,7 +39810,7 @@ NewsCtrl.$inject = ["AppConstants", "User", "Post", "$state", "posts"];
 
 exports.default = NewsCtrl;
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39805,7 +39839,7 @@ partiesModule.controller('PartiesCtrl', _parties4.default);
 
 exports.default = partiesModule;
 
-},{"./parties.config":33,"./parties.controller":34,"angular":3}],33:[function(require,module,exports){
+},{"./parties.config":34,"./parties.controller":35,"angular":3}],34:[function(require,module,exports){
 'use strict';
 
 PartiesConfig.$inject = ["$stateProvider"];
@@ -39826,7 +39860,7 @@ function PartiesConfig($stateProvider) {
 
 exports.default = PartiesConfig;
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39846,7 +39880,7 @@ PartiesCtrl.$inject = ["AppConstants"];
 
 exports.default = PartiesCtrl;
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39895,7 +39929,7 @@ servicesModule.service('Resume', _resume2.default);
 
 exports.default = servicesModule;
 
-},{"./jwt.service":36,"./multipartForm.service":37,"./post.service":38,"./resume.service":39,"./user.service":40,"angular":3}],36:[function(require,module,exports){
+},{"./jwt.service":37,"./multipartForm.service":38,"./post.service":39,"./resume.service":40,"./user.service":41,"angular":3}],37:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -39960,7 +39994,7 @@ var JWT = function () {
 
 exports.default = JWT;
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40017,7 +40051,7 @@ var multipartForm = function () {
 
 exports.default = multipartForm;
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40071,7 +40105,6 @@ var Post = function () {
                 url: '/posts/all',
                 method: 'GET'
             }).then(function (res) {
-                console.log(res);
                 deferred.resolve(res.data);
             }, function (err) {
                 return deferred.reject(err);
@@ -40097,7 +40130,7 @@ var Post = function () {
 
 exports.default = Post;
 
-},{}],39:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40141,7 +40174,7 @@ var Resume = function () {
             return deferred.promise;
         }
 
-        // Delete an article
+        // Delete a resume
 
     }, {
         key: 'destroy',
@@ -40158,7 +40191,7 @@ var Resume = function () {
 
 exports.default = Resume;
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40243,7 +40276,7 @@ var User = function () {
 
 exports.default = User;
 
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40272,7 +40305,7 @@ tournamentsModule.controller('TournamentsCtrl', _tournaments4.default);
 
 exports.default = tournamentsModule;
 
-},{"./tournaments.config":42,"./tournaments.controller":43,"angular":3}],42:[function(require,module,exports){
+},{"./tournaments.config":43,"./tournaments.controller":44,"angular":3}],43:[function(require,module,exports){
 'use strict';
 
 TournamentsConfig.$inject = ["$stateProvider"];
@@ -40306,7 +40339,7 @@ function TournamentsConfig($stateProvider) {
 
 exports.default = TournamentsConfig;
 
-},{}],43:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40330,7 +40363,7 @@ TournamentsCtrl.$inject = ["AppConstants", "User", "Post", "$state", "posts"];
 
 exports.default = TournamentsCtrl;
 
-},{}],44:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -40359,7 +40392,7 @@ venueModule.controller('VenueCtrl', _venue4.default);
 
 exports.default = venueModule;
 
-},{"./venue.config":45,"./venue.controller":46,"angular":3}],45:[function(require,module,exports){
+},{"./venue.config":46,"./venue.controller":47,"angular":3}],46:[function(require,module,exports){
 'use strict';
 
 VenueConfig.$inject = ["$stateProvider"];
@@ -40380,7 +40413,7 @@ function VenueConfig($stateProvider) {
 
 exports.default = VenueConfig;
 
-},{}],46:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

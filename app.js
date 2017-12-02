@@ -13,6 +13,7 @@ var multer = require('multer');
 
 require('./models/Users');
 require('./models/Posts');
+require('./models/Resumes');
 require('./config/passport');
 
 var index = require('./routes/index');
@@ -62,8 +63,16 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    limit: '5mb',
+    parameterLimit: 100000,
+    extended: false 
+}));
+
+app.use(bodyParser.json({
+    limit: '5mb'
+}));
+
 /** Seting up server to accept cross-origin browser requests */
 app.use(function(req, res, next) { //allow cross origin requests
     res.setHeader("Access-Control-Allow-Methods", "POST, PUT, OPTIONS, DELETE, GET");
