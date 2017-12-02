@@ -1,0 +1,36 @@
+<div class="tournaments-page">
+    <app-header></app-header>
+    <div class="background-salmon">
+      <navigation></navigation>
+    </div>
+    <div class="container tournaments-page-container">
+      <div class="row mb-5">
+        <div class="col-12 col-sm-8 mx-auto mt-4">
+          <h1 class='carbon salmon text-center'>Tournaments</h1>
+          <div class="divider background-salmon"></div>  
+        </div><!--End of col-12-->
+      </div><!--End of row-->
+      <div ng-repeat="post in $ctrl.posts | filter:{category:'tournament'}">
+        <div class="row">
+          <div class="col-12 col-sm-6">
+              <img src="{{post.photo_link}}" class='img-fluid pb-3'></img>
+          </div><!--End od col-sm-6-->
+          <div class="col-12 col-sm-6">
+              <div class="row">
+                  <div class="col-12">
+                      <h2 class='zaffre text-center h5' ng-bind="post.title"></h2>
+                  </div><!--End of col-12-->
+                  <div class="col-12 text-center image-wrapper minBox">
+                    <i class="fa fa-bookmark fa-5x zaffre" aria-hidden="true"></i>
+                    <div class='month-wrapper'><span ng-bind="post.date | date:'MMM'"></span></div>
+                    <div class='date-wrapper'><span ng-bind="post.date | date:'dd'"></span></div>
+                    <p class='text-sm-left mt-2' ng-bind="post.body"></p>
+                  </div>         
+              </div><!--End of row-->
+              
+          </div><!--End od col-sm-6-->
+        </div><!--End of row-->
+      </div><!--End of ng-repeat-->
+      
+    </div><!--End of tournaments-container-->
+</div>

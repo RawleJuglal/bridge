@@ -1,0 +1,74 @@
+<div class="careers-page">
+    <app-header></app-header>
+    <div class="background-cyan">
+      <navigation></navigation>
+    </div>
+    <div class="container careers-container container-to-bottom">
+        <div class="row">
+            <div class="col-12 col-sm-6 mx-auto mt-4">
+               <h1 class='carbon cyan text-center'>Careers</h1>
+               <div class="divider background-cyan"></div>
+               <p class='salmon mt-4 font-24'>The Bridge is a premier pool hall providing an exceptional experience to it's clientele. We have the best tables, a great selection of drinks, good food options and lots of entertainment in a classy atmosphere. We are currently looking for people with service industry experience to serve at our Edmond location.</p>
+               <div class="container">
+                   <div class="row">
+                       <div class="col-12">
+                           <h2 class='zaffre h5'>Currently Hiring</h2>
+                       </div>
+                   </div>
+                   <div class="row no-gutters">
+                       <div class="col-12 col-sm-4 d-none d-sm-block">
+                           <img src="https://res.cloudinary.com/relentlessrawle/image/upload/v1510865654/currently-hiring_ihqmpa.jpg" class='img-fluid mb-3'></img>
+                       </div>
+                       <div class="col-12 col-sm-8">
+                           <ul class='list-unstyled zaffre ml-3'>
+                                <li>Bar Manager</li>
+                                <li>Full time bartenders</li>
+                                <li>Part time bartenders</li>
+                                <li>Full or part time cooks</li>
+                                <li>Part time cocktail waitress</li>
+                           </ul>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-12 mb-3">
+                         <span class='zaffre h6 font-24'>Please submit your resume here and we will contact you</span>  
+                       </div>
+                   </div>
+               </div>    
+            </div>
+            <div class="col-12 col-sm-6 mx-auto mb-5">
+                <div class="background-cyan pt-3 pb-3 pl-1 pr-1">
+                   <form ng-submit="$ctrl.onSubmit()">
+                       <fieldset ng-disabled="$ctrl.isSubmitting">
+                            <div class="form-group row">
+                                <label for="inputName" class="col-sm-2 col-form-label sr-only">Name</label>
+                                <div class="col-12">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Full Name" ng-model='$ctrl.formData.name'>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="tel-input" class="col-sm-2 col-form-label sr-only">Telephone</label>
+                                <div class="col-12">
+                                    <input class="form-control" type="tel" value="Phone Number" id="tel-input" ng-model='$ctrl.formData.phone'>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="inputEmail" class="col-sm-2 col-form-label sr-only">EMAIL</label>
+                                  <div class="col-12">
+                                    <input type="email" class="form-control" id="inputEmail" placeholder="Email" ng-model='$ctrl.formData.email'>
+                                  </div>
+                            </div>
+                            <div class="form-group">
+                                     <label class='text-white' for="FileId">Upload Resume (pdf format)</label>
+                                    <input type="file" class="form-control-file" id="fileId" file-model="$ctrl.formData.file" />
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" id='submit-btn' class="btn btn-sm btn-secondary mt-5 info-button">Submit Form</button>
+                            </div>
+                        </fieldset>
+                    </form> 
+                </div>
+            </div>
+        </div>
+    </div><!--End of container-->
+</div>

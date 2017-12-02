@@ -1,0 +1,98 @@
+<div class="background-zaffre">
+  <navigation></navigation>
+</div>
+<div class="dashboard-container container-to-bottom">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-8 col-lg-9">
+                <div class="tournaments-list">
+                    <h2 class='zaffre'><u>Tournaments List</u></h2>
+                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="post in $ctrl.posts | filter:{category:'tournament'}">
+                        <div class="row">
+                            <div class="col-10">
+                               <h3 class='pl-1 pt-1' ng-bind="post.title"></h3>
+                               <p class='pl-1 pt-1' ng-bind="post.date | date:'MMM dd'"></p>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="close pr-1" aria-label="Close" ng-click='$ctrl.deletePost(post._id)'>
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!--End of tournaments-post-->
+                </div><!--End of tournaments list-->
+                <div class="new-list">
+                    <h2 class='zaffre'><u>News & Promotions List</u></h2>
+                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="post in $ctrl.posts | filter:{category:'news'}">
+                        <div class="row">
+                            <div class="col-10">
+                               <h3 class='pl-1 pt-1' ng-bind="post.title"></h3>
+                               <p class='pl-1 pt-1' ng-bind="post.date | date:'MMM dd'"></p>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="close mr-1" aria-label="Close"  ng-click='$ctrl.deletePost(post._id)'>
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!--End of tournaments-post-->
+                </div><!--End of news list-->
+                <div class="resume-list">
+                    <h2 class='zaffre'><u>Resumes</u></h2>
+                    <div class="border border-primary rounded mb-2 OEDropShadow" ng-repeat="resume in $ctrl.resumes">
+                        <div class="row">
+                            <div class="col-10">
+                               <h3 class='pl-1 pt-1' ng-bind="resume.name"></h3>
+                               <span><span class='pl-1 pt-1' ng-bind="resume.date | date:'MMM dd'"></span> <span class='pl-1 pt-1' ng-bind="resume.phone"></span> <span class='pl-1 pt-1' ng-bind="resume.email"></span></span>
+                               <a class="btn btn-link" target='_blank' href='https://pure-woodland-45165.herokuapp.com/{{resume.file_path}}'><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
+                            </div>
+                            <div class="col-2">
+                                <button type="button" class="close mr-1" aria-label="Close"  ng-click='$ctrl.deleteResume(resume._id)'>
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div><!--End of tournaments-post-->
+                </div><!--End of news list-->
+            </div><!--End of col-sm-9-->
+            <div class="col-12 col-sm-4 col-lg-3">
+                <div class="background-zaffre  mt-5 mb-5 pt-3 pb-3 pl-1 pr-1 OEDropShadow">
+                    <form ng-submit="$ctrl.submitForm()">
+                        <p class='text-white'>Add new Post</p>
+                        <fieldset ng-disabled="$ctrl.isSubmitting">
+                            <fieldset class='form-group'>
+                                <label for="title" class='sr-only'>Title</label>
+                                <input class='form-control form-control-lg' type='text' placeholder='title' ng-model="$ctrl.formData.title" required />
+                            </fieldset>
+                            <fieldset class='form-group'>
+                                <label for="date" class='sr-only'>Date</label>
+                                <input class='form-control form-control-lg' id="date" type="date" ng-model="$ctrl.formData.date" required >
+                            </fieldset><!--End of fieldset-->
+                            <fieldset class='form-group'>
+                                <label for="bodyTextArea" class='sr-only'>Body</label>
+                                <textarea class="form-control form-control-lg" id="bodyTextArea" rows="3" ng-model="$ctrl.formData.body" placeholder="body" required ></textarea>
+                            </fieldset>
+                            <fieldset class='form-group'>
+                               <label for="urlPhoto" class='sr-only'>Photo</label>
+                               <input class='form-control form-control-lg' type='text' placeholder='url' ng-model="$ctrl.formData.photo_link" required />
+                            </fieldset><!--End of form-group-->
+                            <div class="form-group">
+                                <label for="categorySelect">Category</label>
+                                <select class="form-control" id="categorySelect" ng-model="$ctrl.formData.category" required >
+                                  <option>Tournament</option>
+                                  <option>News</option>
+                                </select>
+                              </div>
+                        </fieldset><!--End of fieldset-->
+                        <fieldset>
+                           <button class="btn btn-sm btn-light float-right"type="submit">Add Post</button> 
+                        </fieldset>   
+                    </form>
+                </div><!--End of background-zaffre-->
+                <div class="col-12 text-center">
+                <button type="button" class="btn btn-danger OEDropShadow" ng-click='$ctrl.logout()'>Log Out</button>
+            </div>
+            </div><!--End of col-sm-3-->
+        </div><!--End of row-->
+    </div><!--End of container-->
+</div>

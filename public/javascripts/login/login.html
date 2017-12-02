@@ -1,0 +1,39 @@
+
+<app-header></app-header>
+<div class="background-zaffre">
+  <navigation></navigation>
+</div>
+<div class="container-to-bottom">
+    <div class="container">
+        <div class="row mt-5 mb-5 justify-content-center">
+            <div class="col-12 col-sm-4  mt-5 mb-5 ">
+                <div class="background-zaffre  mt-5 mb-5 pt-3 pb-3 pl-1 pr-1">
+                    <form ng-submit="$ctrl.submitForm()">
+                      <!-- when auth.controller.js var isSubmitting is true the form is disabled -->
+                      <fieldset ng-disabled="$ctrl.isSubmitting">
+                        <!-- the username input will only show when auth.controller.js authType is register -->
+                        <fieldset class="form-group">
+                          <input class="form-control form-control-lg"
+                            type="text"
+                            placeholder="Username"
+                            ng-model="$ctrl.formData.username" required />
+                        </fieldset>
+            
+                        <fieldset class="form-group">
+                          <input class="form-control form-control-lg"
+                            type="password"
+                            placeholder="Password"
+                            ng-model="$ctrl.formData.password" required />
+                        </fieldset>
+                        <!-- button will use auth.controller.js var stored in title
+                         which it receives from auth.config.js -->
+                        <button class="btn btn-sm btn-light float-right"type="submit" ng-bind="$ctrl.title">
+                        </button>
+            
+                      </fieldset>
+                    </form>
+                </div><!--End of div background-cyan-->
+            </div><!--End of col-12-->
+        </div><!--End of row-->
+    </div><!--End of container-->
+</div><!--End of login-container-->
