@@ -91,7 +91,6 @@ app.use('/users', users);
 app.use('/posts', posts);
 app.use('/resumes', resumes);
 
-app.use('/lib', express.static(__dirname + '/build/vendors'));
 app.use('/dist', express.static(__dirname + '/build'));
 
 // catch 404 and forward to error handler

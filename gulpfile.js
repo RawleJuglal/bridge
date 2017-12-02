@@ -27,7 +27,12 @@ var interceptErrors = function(error) {
 var jsFiles = "public/javascripts/**/*.js";
 var cssFiles = "public/stylesheets/*.css";
 var viewFiles = "public/javascripts/**/*.html";
-var vendorFiles = "public/vendors/*";
+var jquery = "public/vendors/jquery/*";
+var tether = "public/vendors/tether/dist/js/*.min.js";
+var popper = "public/vendors/popper.js/dist/esm/popper.js";
+var fontAwesome = "public/vendors/font-awesome-4.7.0/css/*.min.css";
+var bootstrapCSS = "public/vendors/bootstrap/css/*";
+var bootstrapJS = "public/vendors/bootstrap/js/*"; 
 
 gulp.task('lint', function(){
 	return gulp.src('jsFiles')
@@ -73,10 +78,40 @@ gulp.task('errors', function(){
 		.pipe(gulp.dest('./build/'));
 });
 
-gulp.task('vendor', function(){
-	return gulp.src(vendorFiles)
+gulp.task('jquery', function(){
+	return gulp.src(jquery)
 		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/vendors/'));
+		.pipe(gulp.dest('./build/vendors/jquery/'));
 });
 
-gulp.task('default', ['lint', 'html', 'css', 'vendor', 'errors', 'browserify']);
+gulp.task('tether', function(){
+	return gulp.src(tether)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/tether/'));
+});
+
+gulp.task('popper', function(){
+	return gulp.src(popper)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/popper.js/'));
+});
+
+gulp.task('fontAwesome', function(){
+	return gulp.src(fontAwesome)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/font-awesome-4.7.0/css/'));
+});
+
+gulp.task('bootstrapCSS', function(){
+	return gulp.src(bootstrapCSS)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/bootstrap/css/'));
+});
+
+gulp.task('bootstrapJS', function(){
+	return gulp.src(bootstrapJS)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/vendors/bootstrap/js/'));
+});
+
+gulp.task('default', ['lint', 'html', 'css', 'jquery', 'tether', 'popper', 'fontAwesome', 'bootstrapCSS', 'bootstrapJS',  'errors', 'browserify']);
