@@ -78,40 +78,4 @@ gulp.task('errors', function(){
 		.pipe(gulp.dest('./build/'));
 });
 
-gulp.task('jquery', function(){
-	return gulp.src(jquery)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('tether', function(){
-	return gulp.src(tether)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('popper', function(){
-	return gulp.src(popper)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('fontAwesome', function(){
-	return gulp.src(fontAwesome)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('bootstrapCSS', function(){
-	return gulp.src(bootstrapCSS)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('bootstrapJS', function(){
-	return gulp.src(bootstrapJS)
-		.on('error', interceptErrors)
-		.pipe(gulp.dest('./build/'));
-});
-
-gulp.task('default', ['lint', 'html', 'css', 'jquery', 'tether', 'popper', 'fontAwesome', 'bootstrapCSS', 'bootstrapJS',  'errors', 'browserify']);
+gulp.task('default', ['lint', 'html', 'css', 'errors', 'browserify']);
