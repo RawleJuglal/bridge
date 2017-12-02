@@ -7,9 +7,9 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var multer = require('multer');
-var GridFsStorage = require('multer-gridfs-storage');
-var Grid = require('gridfs-stream');
-Grid.mongo = mongoose.mongo;
+// var GridFsStorage = require('multer-gridfs-storage');
+// var Grid = require('gridfs-stream');
+// Grid.mongo = mongoose.mongo;
 
 require('./models/Users');
 require('./models/Posts');
@@ -32,16 +32,28 @@ if (!process.env.MONGODB_URI) {
   var mongoUri = process.env.MONGODB_URI
 }
 
-var conn = mongoose.createConnection(mongoUri, { useMongoClient: true });
+// var conn = mongoose.createConnection(mongoUri, { useMongoClient: true });
 
 
 
-conn.on('error', console.error.bind(console, 'connection error:'))
+// conn.on('error', console.error.bind(console, 'connection error:'))
 
-conn.once('open', function(){
-	var gfs = Grid(conn.db, mongoose.mongo);
-	console.log('Made connection to database');
-});
+// conn.once('open', function(){
+// 	var gfs = Grid(conn.db, mongoose.mongo);
+// 	console.log('Made connection to database');
+// });
+
+mongoose.connect(mongoUri, { useMongoClient: true })
+
+var db = mongoose.connection
+
+db.on('error', console.error.bind(console, 'connection error:'))
+
+db.once('open', dbCallback)
+
+function dbCallback() {
+  console.log('db callback called')
+}
 
 // view engine setup
 app.set('views', path.join(__dirname, 'build'));
@@ -64,27 +76,27 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
 
-var storage = GridFsStorage({
-	url:mongoUri,
-	filename: function(req, file, cb){
-		var datetimestamp = Date.now();
-		return new Promise((resolve, reject) => {
-			if(err){
-				return reject(err);
-			}
-			var fileInfo = {
-				chunkSize:1024
-			}
-			resolve(fileInfo);
-		})
-		cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
-	},
-	root: 'ctFiles' //root name for collection to store files into
-});
+// var storage = GridFsStorage({
+// 	url:mongoUri,
+// 	filename: function(req, file, cb){
+// 		var datetimestamp = Date.now();
+// 		return new Promise((resolve, reject) => {
+// 			if(err){
+// 				return reject(err);
+// 			}
+// 			var fileInfo = {
+// 				chunkSize:1024
+// 			}
+// 			resolve(fileInfo);
+// 		})
+// 		cb(null, file.fieldname + '-' + datetimestamp + '.' + file.originalname.split('.')[file.originalname.split('.').length -1]);
+// 	},
+// 	root: 'ctFiles' //root name for collection to store files into
+// });
 
-var upload = multer({ //multer settings for single upload
-	storage: storage
-}).single('file');
+// var upload = multer({ //multer settings for single upload
+// 	storage: storage
+// }).single('file');
 
 app.use('/', index);
 app.use('/users', users);

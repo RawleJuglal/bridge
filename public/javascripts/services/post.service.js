@@ -12,11 +12,11 @@ export default class Post{
     }
     
     addPost(formData){
-        let route = '/posts';
+        let route = '/posts/entry';
         
         return this._$http({
        //use url https://conduit.productionready.io/api/login or https://conduit.productionready.io/api 
-       url: this._AppConstants.api + route,
+       url:route,
        //find the POST method of this url
        method: 'POST',
        //send data object with key user and field credentials
@@ -33,10 +33,14 @@ export default class Post{
         let deferred = this._$q.defer();
       
         this._$http({ 
-          url:'/posts',
+          url:'/posts/all',
           method: 'GET'
         }).then(
-           (res) => deferred.resolve(res.data),
+           (res) => 
+           {
+            console.log(res)
+            deferred.resolve(res.data)
+           },
            (err) => deferred.reject(err)
          );
      
@@ -46,7 +50,7 @@ export default class Post{
     // Delete an article
     destroy(slug) {
         return this._$http({
-           url: this._AppConstants.api + '/posts/' + slug,
+           url:'/posts/' + slug,
            method: 'DELETE'
         });
     }
