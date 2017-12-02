@@ -27,11 +27,11 @@ export default class User {
   //method will need type('login' || 'register') and credentials (object with user information)
   attemptAuth(credentials) {
      //var route is '/login' if type is 'login' or empty if not
-     let route = '/login';
+     let route = '/users/login';
      //make $http request and return
      return this._$http({
        //use url https://conduit.productionready.io/api/login or https://conduit.productionready.io/api 
-       url: this._AppConstants.api + route,
+       url:route,
        //find the POST method of this url
        method: 'POST',
        //send data object with key user and field credentials

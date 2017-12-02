@@ -16,7 +16,7 @@ export default class Resume{
      
          
         this._$http({
-          url: this._AppConstants.api + '/resumes',
+          url:'/resumes',
           method: 'GET'
         }).then(
            (res) => deferred.resolve(res.data),
@@ -29,7 +29,7 @@ export default class Resume{
     // Delete an article
     destroy(slug) {
         return this._$http({
-           url: this._AppConstants.api + '/resumes/' + slug,
+           url:'/resumes/' + slug,
            method: 'DELETE'
         });
     }

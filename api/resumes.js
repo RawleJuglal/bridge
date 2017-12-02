@@ -70,4 +70,8 @@ router.get('file/:filename', function(req, res, next){
 	});
 });
 
+router.delete('/:filename', function(req, res, next){
+	res.json({success:false, message:'Still need to set this route'});
+})
+
 module.exports = router;
