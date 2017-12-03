@@ -11,7 +11,7 @@ class DashboardCtrl {
     this.resumes = resumes;
 
     this.logout = User.logout.bind(User);
-
+    console.log(this.resumes);
   }
 
   submitForm() {
