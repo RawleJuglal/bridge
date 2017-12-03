@@ -33,6 +33,7 @@ var popper = "public/vendors/popper.js/dist/esm/popper.js";
 var fontAwesome = "public/vendors/font-awesome-4.7.0/css/*.min.css";
 var bootstrapCSS = "public/vendors/bootstrap/css/*";
 var bootstrapJS = "public/vendors/bootstrap/js/*"; 
+var favicon = "public/*.ico";
 
 gulp.task('lint', function(){
 	return gulp.src('jsFiles')
@@ -62,6 +63,12 @@ gulp.task('css', function(){
 		.pipe(gulp.dest('./build/'));
 });
 
+gulp.task('favicon', function(){
+	return gulp.src(favicon)
+		.on('error', interceptErrors)
+		.pipe(gulp.dest('./build/'));
+});
+
 gulp.task('views', function(){
 	return gulp.src(viewFiles)
 		.pipe(templateCache({
@@ -78,4 +85,4 @@ gulp.task('errors', function(){
 		.pipe(gulp.dest('./build/'));
 });
 
-gulp.task('default', ['lint', 'html', 'css', 'errors', 'browserify']);
+gulp.task('default', ['lint', 'html', 'css', 'favicon', 'errors', 'browserify']);
