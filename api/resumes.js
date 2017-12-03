@@ -49,6 +49,7 @@ var storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
+    console.log(file.fieldname + '-' + Date.now()+'.'+file.mimetype.split('/')[1]);
     cb(null, file.fieldname + '-' + Date.now() + '.' + file.mimetype.split('/')[1]);
   }
 })
@@ -111,29 +112,37 @@ router.post('/upload', function(req, res, next){
     })
 })
 
-router.get('file/:filename', function(req, res, next){
-	gfs.collection('ctFiles');
+// router.get('file/:filename', function(req, res, next){
+// 	gfs.collection('ctFiles');
 
-	gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
-		if(!files || files.length === 0){
-			return res.status(404).json({
-				responseCode:1, 
-				responseMessage:"error"
-			});
-		}
+// 	gfs.files.find({filename: req.params.filename}).toArray(function(err, files){
+// 		if(!files || files.length === 0){
+// 			return res.status(404).json({
+// 				responseCode:1, 
+// 				responseMessage:"error"
+// 			});
+// 		}
 
-		var readstream = gfs.createReadStream({
-			filename: files[0].filename,
-			root: "ctFiles"
-		});
+// 		var readstream = gfs.createReadStream({
+// 			filename: files[0].filename,
+// 			root: "ctFiles"
+// 		});
 
-		res.set('Content-Type', files[0].contentType);
-		return readstream.pipe(res);
-	});
+// 		res.set('Content-Type', files[0].contentType);
+// 		return readstream.pipe(res);
+// 	});
+// });
+
+router.delete('/:resume_id', function(req, res, next){
+  Resume.findById(req.params.resume_id, function(err, resume){
+    if(err){return next(err)};
+    fs.unlink(resume.file_path, resultHandler);
+  });
+  
+  Resume.findByIdAndRemove(req.params.resume_id, function(err, result){
+        if(err){console.log(err)}
+        else{res.json(result)};
+    });
 });
-
-router.delete('/:filename', function(req, res, next){
-	res.json({success:false, message:'Still need to set this route'});
-})
 
 module.exports = router;
