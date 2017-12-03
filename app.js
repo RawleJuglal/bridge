@@ -84,6 +84,7 @@ app.use(function(req, res, next) { //allow cross origin requests
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(passport.initialize());
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 // var storage = GridFsStorage({
 // 	url:mongoUri,
