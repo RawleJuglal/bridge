@@ -38,10 +38,19 @@ export default class multipartForm {
     // parse it, which triggers the error before it ever gets to the route itself.
     console.log('FD', fd);
 
+    // return this._$http.post(uploadUrl, fd, {
+    //   headers: {
+    //     'Content-Type': 'multipart/form-data'
+    //   }
+    // }).then(
+    //   (res) => {
+    //     console.log('Res', res);
+    //     return res;
+    //   }
+    // )
     return this._$http.post(uploadUrl, fd, {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
+      transformRequest: angular.identity,
+      headers: {'Content-Type': undefined}
     }).then(
       (res) => {
         console.log('Res', res);

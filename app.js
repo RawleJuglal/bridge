@@ -53,7 +53,7 @@ db.on('error', console.error.bind(console, 'connection error:'))
 db.once('open', dbCallback)
 
 function dbCallback() {
-  console.log('db callback called')
+  console.log('db connection made!')
 }
 
 // view engine setup
