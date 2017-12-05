@@ -233,6 +233,9 @@ div.transbox h4, div.transbox p {
     background-color: #252525;
 }
 
+.fa-bookmark{
+    visibility: hidden;
+}
 /*Footer Styles*/
 
 footer{
