@@ -73,11 +73,6 @@ body{
      box-shadow: 0 8px 6px -6px black;
 }
 
-.minBox{
-    min-height: 300px;
-    max-height:300.2px;
-}
-
 .post-background{
     height:250px;
 }
@@ -350,6 +345,11 @@ footer{
     
     .navbar-mobile{
         display:none;
+    }
+
+    .minBox{
+        min-height: 300px;
+        max-height:300.2px;
     }
 }
 
