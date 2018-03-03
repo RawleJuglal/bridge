@@ -37,9 +37,11 @@ router.post('/login', function(req, res, next){
 		if(err){return next(err);}
 
 		if(user){
+			console.log('i have a user');
 			return res.json({success:true, message:'This user is authenticated', token:user.generateJWT()});
 		} else {
-			return res.sendStatus(401).json(info);
+			console.log('I did not find a user');
+			return res.json(info);
 		}
 	})(req, res, next);
 });
